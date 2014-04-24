@@ -13,13 +13,11 @@ public class Bloco extends Iteravel implements Celula {
 	private String nomeImagem;
 	private Elemento elemento;
 	private Random random;
-	// private Elemento elemento;
-	
+
 	public Bloco(Posicao posicao, PainelPrincipal painelPrincipal,
 			int resistencia) {
 		this.posicao = posicao;
 		this.painelPrincipal = painelPrincipal;
-		this.nomeImagem = nomeImagem;
 		if (resistencia == 0) {
 			nomeImagem = "/imagens/bloco0.png";
 		} else if (resistencia == 1) {
@@ -39,21 +37,23 @@ public class Bloco extends Iteravel implements Celula {
 		}
 
 	}
-	
+
 	public Posicao getPosicao() {
 		return posicao;
 	}
-	
+
 	public CellRepresentation getCellRepresentation() {
 		if (elemento != null)
-			return new OverlayCellRepresentation(new SingleImageCellRepresentation(nomeImagem), elemento.getRepresentacaoVisual());
+			return new OverlayCellRepresentation(
+					new SingleImageCellRepresentation(nomeImagem),
+					elemento.getRepresentacaoVisual());
 		return new SingleImageCellRepresentation(nomeImagem);
 	}
 
 	public int getResistencia() {
 		return resistencia;
 	}
-	
+
 	public Elemento getElemento() {
 		return elemento;
 	}
@@ -63,6 +63,6 @@ public class Bloco extends Iteravel implements Celula {
 	}
 
 	public void iterar() {
-		
+
 	}
 }

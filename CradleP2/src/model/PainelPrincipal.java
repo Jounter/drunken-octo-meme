@@ -1,12 +1,14 @@
 package model;
 
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.Random;
 
 import pt.ipleiria.estg.dei.gridpanel.GridPanel;
+import pt.ipleiria.estg.dei.gridpanel.GridPanelEventHandler;
 import pt.ipleiria.estg.dei.utils.FileHandler;
 
-public class PainelPrincipal extends Iteravel {
+public class PainelPrincipal extends Iteravel implements GridPanelEventHandler {
 	private Celula[][] grelha;
 	private Jogo jogo;
 	private GridPanel gridPanel;
@@ -16,6 +18,9 @@ public class PainelPrincipal extends Iteravel {
 	private static final String CORRENTE = "C";
 
 	private Random random;
+	private Posicao posicaoElemento;
+	private Bloco elementoBloco;
+	private boolean aArrastar;
 
 	public PainelPrincipal(GridPanel gridPanel, Jogo jogo) {
 		this.gridPanel = gridPanel;
@@ -24,6 +29,9 @@ public class PainelPrincipal extends Iteravel {
 		listaBlocos = new LinkedList<>();
 		carregarFicheiroNivel();
 		random = new Random();
+		aArrastar = true;
+		gridPanel.setEventHandler(this);
+
 	}
 
 	private void carregarFicheiroNivel() {
@@ -122,9 +130,50 @@ public class PainelPrincipal extends Iteravel {
 		}
 	}
 
+	private Bloco getElemento(Posicao posicaoElemento) {
+		return (Bloco) grelha[posicaoElemento.getLinha()][posicaoElemento
+				.getColuna()];
+	}
+
 	@Override
 	public void iterar(long tempoInicial) {
 		elementosAleatorios();
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent mouseEvent, int x, int y) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent mouseEvent, int x, int y) {
+		posicaoElemento = new Posicao(x, y);
+		if (!isParede(posicaoElemento)) {
+			elementoBloco = getElemento(posicaoElemento);
+			System.out.println(grelha[elementoBloco.getPosicao().getColuna()][elementoBloco.getPosicao().getLinha()]);
+//			if (elementoBloco.getElemento()) { ir à corrente
+//				aArrastar = false;
+//				System.out.println(grelha[posicaoElemento.getColuna()][posicaoElemento.getLinha()]);
+//			}
+		}
+	}
+
+	private boolean isParede(Posicao posicao) {
+		return grelha[posicaoElemento.getLinha()][posicaoElemento
+		                          				.getColuna()] instanceof Parede;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent mouseEvent, int x, int y) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent mouseEvent, int x, int y) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
